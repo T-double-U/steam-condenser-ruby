@@ -9,7 +9,7 @@ require 'steam-condenser/servers/packets/rcon/rcon_auth_response'
 require 'steam-condenser/servers/packets/rcon/rcon_exec_response'
 require 'steam-condenser/error/packet_format'
 
-module SteamCondenser::Servers::Packets::RCON
+module SteamCondenser::SteamServers::Packets::RCON
 
   # This module provides functionality to handle raw packet data for Source
   # RCON

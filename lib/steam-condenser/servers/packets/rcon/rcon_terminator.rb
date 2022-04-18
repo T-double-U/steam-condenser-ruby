@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/rcon/base_packet'
 
-module SteamCondenser::Servers::Packets::RCON
+module SteamCondenser::SteamServers::Packets::RCON
 
   # This packet class represents a special SERVERDATA_RESPONSE_VALUE packet
   # which is sent to the server
@@ -15,7 +15,7 @@ module SteamCondenser::Servers::Packets::RCON
   # response packet from the server will indicate the end of the response.
   #
   # @author Sebastian Staudt
-  # @see SourceServer#rcon_exec
+  # @see SourceSteamServer#rcon_exec
   class RCONTerminator
 
     include BasePacket

@@ -11,5 +11,5 @@ require 'steam-condenser'
 # require classes to interact with servers
 #
 # @author Sebastian Staudt
-module SteamCondenser::Servers
+module SteamCondenser::SteamServers
 end

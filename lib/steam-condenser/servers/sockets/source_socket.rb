@@ -7,7 +7,7 @@ require 'core_ext/stringio'
 require 'steam-condenser/error/timeout'
 require 'steam-condenser/servers/sockets/base_socket'
 
-module SteamCondenser::Servers::Sockets
+module SteamCondenser::SteamServers::Sockets
 
   # This class represents a socket used to communicate with game servers based
   # on the Source engine (e.g. Team Fortress 2, Counter-Strike: Source)
@@ -59,9 +59,9 @@ module SteamCondenser::Servers::Sockets
           end
         end while bytes_read > 0 && @buffer.long == 0xFFFFFFFE
 
-        packet = SteamCondenser::Servers::Packets::SteamPacketFactory.reassemble_packet(split_packets, is_compressed, packet_checksum)
+        packet = SteamCondenser::SteamServers::Packets::SteamPacketFactory.reassemble_packet(split_packets, is_compressed, packet_checksum)
       else
-        packet = SteamCondenser::Servers::Packets::SteamPacketFactory.packet_from_data(@buffer.get)
+        packet = SteamCondenser::SteamServers::Packets::SteamPacketFactory.packet_from_data(@buffer.get)
       end
 
       if log.debug?

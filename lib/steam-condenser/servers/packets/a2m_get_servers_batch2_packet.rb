@@ -6,7 +6,7 @@
 require 'steam-condenser/servers/master_server'
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This packet class represents a A2M_GET_SERVERS_BATCH2 request sent to a
   # master server
@@ -32,7 +32,7 @@ module SteamCondenser::Servers::Packets
   # * `\proxy\1`: Request only spectator proxy servers
   #
   # @author Sebastian Staudt
-  # @see MasterServer#servers
+  # @see MasterSteamServer#servers
   class A2M_GET_SERVERS_BATCH2_Packet
 
     include BasePacket
@@ -44,7 +44,7 @@ module SteamCondenser::Servers::Packets
     #        master server or 0.0.0.0
     # @param [String] filter The filters to apply in the form
     #        "\filtername\value..."
-    def initialize(region_code = Servers::MasterServer::REGION_ALL, start_ip = '0.0.0.0:0', filter = '')
+    def initialize(region_code = SteamServers::MasterSteamServer::REGION_ALL, start_ip = '0.0.0.0:0', filter = '')
       super A2M_GET_SERVERS_BATCH2_HEADER
 
       @filter = filter

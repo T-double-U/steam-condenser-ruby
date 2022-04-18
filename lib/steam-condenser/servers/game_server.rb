@@ -18,16 +18,16 @@ require 'steam-condenser/servers/packets/s2c_challenge_packet'
 
 module SteamCondenser
 
-  module Servers
+  module SteamServers
 
     # This module is included by classes representing different game server
     # implementations and provides the basic functionality to communicate with
     # them using the common query protocol
     #
     # @author Sebastian Staudt
-    module GameServer
+    module GameSteamServer
 
-      include BaseServer
+      include BaseSteamServer
 
       # Parses the player attribute names supplied by `rcon status`
       #
@@ -185,7 +185,7 @@ module SteamCondenser
       # {#update_players}, there's no need to call {#update_server_info} very
       # often.
       #
-      # @return [Hash] Server attributes with their values
+      # @return [Hash] SteamServer attributes with their values
       # @see #update_server_info
       def server_info
         update_server_info if @info_hash.nil?
@@ -283,10 +283,10 @@ module SteamCondenser
         end.map do |line|
           line[1..-1].strip
         end
-        attributes = GameServer.player_status_attributes players.shift
+        attributes = GameSteamServer.player_status_attributes players.shift
 
         players.each do |player|
-          player_data = GameServer.split_player_status(attributes, player)
+          player_data = GameSteamServer.split_player_status(attributes, player)
           player_name = player_data[:name]
           if @player_hash.key? player_name
             @player_hash[player_name].add_info player_data

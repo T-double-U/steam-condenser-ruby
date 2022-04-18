@@ -7,7 +7,7 @@ require 'socket'
 
 module SteamCondenser
 
-  module Servers
+  module SteamServers
 
     # This module is included by all classes implementing server functionality
     #
@@ -15,7 +15,7 @@ module SteamCondenser
     # different IP addresses belonging to a single DNS name.
     #
     # @author Sebastian Staudt
-    module BaseServer
+    module BaseSteamServer
 
       # Returns a list of host names associated with this server
       #
@@ -68,7 +68,7 @@ module SteamCondenser
       # used, hinting at the server(s) being unreachable. An appropriate action
       # should be taken to inform the user.
       #
-      # Servers with only one IP address will always cause this method to return
+      # SteamServers with only one IP address will always cause this method to return
       # `true` and the sockets will not be reinitialized.
       #
       # @return [Boolean] `true`, if the IP list reached its end. If the list

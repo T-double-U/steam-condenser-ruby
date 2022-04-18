@@ -6,7 +6,7 @@
 require 'steam-condenser/servers/packets/base_packet'
 require 'steam-condenser/servers/packets/request_with_challenge'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This packet class represents a A2S_PLAYER request send to a game server
   #
@@ -16,7 +16,7 @@ module SteamCondenser::Servers::Packets
   # which is done automatically if required.
   #
   # @author Sebastian Staudt
-  # @see GameServer#update_player_info
+  # @see GameSteamServer#update_player_info
   class A2S_PLAYER_Packet
 
     include BasePacket

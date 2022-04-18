@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/rcon/base_packet'
 
-module SteamCondenser::Servers::Packets::RCON
+module SteamCondenser::SteamServers::Packets::RCON
 
   # This packet class represents a SERVERDATA_EXECCOMMAND packet sent to a
   # Source server
@@ -13,7 +13,7 @@ module SteamCondenser::Servers::Packets::RCON
   # It is used to request a command execution on the server.
   #
   # @author Sebastian Staudt
-  # @see SourceServer#rcon_exec
+  # @see SourceSteamServer#rcon_exec
   class RCONExecRequest
 
     include BasePacket

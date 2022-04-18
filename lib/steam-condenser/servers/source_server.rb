@@ -16,28 +16,28 @@ require 'steam-condenser/servers/sockets/source_socket'
 
 module SteamCondenser
 
-  module Servers
+  module SteamServers
 
     # This class represents a Source game server and can be used to query
     # information about and remotely execute commands via RCON on the server
     #
-    # A Source game server is an instance of the Source Dedicated Server (SrcDS)
+    # A Source game server is an instance of the Source Dedicated SteamServer (SrcDS)
     # running games using Valve's Source engine, like Counter-Strike: Source,
     # Team Fortress 2 or Left4Dead.
     #
     # @author Sebastian Staudt
-    # @see GoldSrcServer
-    class SourceServer
+    # @see GoldSrcSteamServer
+    class SourceSteamServer
 
-      include GameServer
+      include GameSteamServer
       include SteamCondenser::Logging
 
       # Returns a master server instance for the default master server for Source
       # games
       #
-      # @return [MasterServer] The Source master server
+      # @return [MasterSteamServer] The Source master server
       def self.master
-        MasterServer.new *MasterServer::SOURCE_MASTER_SERVER
+        MasterSteamServer.new *MasterSteamServer::SOURCE_MASTER_SERVER
       end
 
       # Creates a new instance of a server object representing a Source server,

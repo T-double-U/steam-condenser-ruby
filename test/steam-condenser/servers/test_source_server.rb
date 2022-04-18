@@ -5,17 +5,17 @@
 
 require 'helper'
 
-class TestSourceServer < Test::Unit::TestCase
+class TestSourceSteamServer < Test::Unit::TestCase
 
   context 'The user' do
 
     should 'be able to get a master server for Source servers' do
       master = mock
-      Servers::MasterServer.expects(:new).
-        with(*Servers::MasterServer::SOURCE_MASTER_SERVER).
+      SteamServers::MasterSteamServer.expects(:new).
+        with(*SteamServers::MasterSteamServer::SOURCE_MASTER_SERVER).
         returns master
 
-      assert_equal master, Servers::SourceServer.master
+      assert_equal master, SteamServers::SourceSteamServer.master
     end
 
   end
@@ -27,14 +27,14 @@ class TestSourceServer < Test::Unit::TestCase
         with('source', 27015, Socket::AF_INET, Socket::SOCK_DGRAM).
         returns [[nil, nil, 'source', '127.0.0.1']]
 
-      @server = Servers::SourceServer.new 'source', 27015
+      @server = SteamServers::SourceSteamServer.new 'source', 27015
     end
 
     should 'create client sockets upon initialization' do
       socket = mock
-      Servers::Sockets::SourceSocket.expects(:new).with('127.0.0.1', 27015).returns socket
+      SteamServers::Sockets::SourceSocket.expects(:new).with('127.0.0.1', 27015).returns socket
       rcon_socket = mock
-      Servers::Sockets::RCONSocket.expects(:new).with('127.0.0.1', 27015).returns rcon_socket
+      SteamServers::Sockets::RCONSocket.expects(:new).with('127.0.0.1', 27015).returns rcon_socket
 
       @server.init_socket
 
@@ -49,7 +49,7 @@ class TestSourceServer < Test::Unit::TestCase
       rcon_socket.expects(:send_packet).with do |packet|
         reply.expects(:request_id).returns packet.request_id
 
-        packet.is_a? Servers::Packets::RCON::RCONAuthRequest
+        packet.is_a? SteamServers::Packets::RCON::RCONAuthRequest
       end
       rcon_socket.expects(:reply).twice.returns(mock).returns(reply)
       @server.instance_variable_set :@rcon_socket, rcon_socket
@@ -63,7 +63,7 @@ class TestSourceServer < Test::Unit::TestCase
       reply.expects(:request_id).returns -1
 
       rcon_socket = mock
-      rcon_socket.expects(:send_packet).with { |packet| packet.is_a? Servers::Packets::RCON::RCONAuthRequest }
+      rcon_socket.expects(:send_packet).with { |packet| packet.is_a? SteamServers::Packets::RCON::RCONAuthRequest }
       rcon_socket.expects(:reply).twice.returns(mock).returns(reply)
       @server.instance_variable_set :@rcon_socket, rcon_socket
 
@@ -90,7 +90,7 @@ class TestSourceServer < Test::Unit::TestCase
       setup do
         @rcon_socket = mock
         @rcon_socket.expects(:send_packet).with do |packet|
-          packet.is_a?(Servers::Packets::RCON::RCONExecRequest) &&
+          packet.is_a?(SteamServers::Packets::RCON::RCONExecRequest) &&
           packet.instance_variable_get(:@content_data).string == "command\0\0" &&
           packet.instance_variable_get(:@request_id) == 1234
         end
@@ -102,7 +102,7 @@ class TestSourceServer < Test::Unit::TestCase
 
       should 'reset the connection if the server indicates so' do
         reply = mock
-        reply.expects(:is_a?).with(Servers::Packets::RCON::RCONAuthResponse).returns true
+        reply.expects(:is_a?).with(SteamServers::Packets::RCON::RCONAuthResponse).returns true
         @rcon_socket.expects(:reply).returns(reply)
 
         assert_raises Error::RCONNoAuth do
@@ -122,7 +122,7 @@ class TestSourceServer < Test::Unit::TestCase
 
       should 'receive the response of a command' do
         @rcon_socket.expects(:send_packet).with do |packet|
-          packet.is_a?(Servers::Packets::RCON::RCONTerminator) &&
+          packet.is_a?(SteamServers::Packets::RCON::RCONTerminator) &&
           packet.instance_variable_get(:@request_id) == 1234
         end
 

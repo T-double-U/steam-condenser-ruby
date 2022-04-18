@@ -11,7 +11,7 @@ require 'steam-condenser/error/rcon_no_auth'
 require 'steam-condenser/error/timeout'
 require 'steam-condenser/servers/sockets/base_socket'
 
-module SteamCondenser::Servers::Sockets
+module SteamCondenser::SteamServers::Sockets
 
   # This class represents a socket used to communicate with game servers based
   # on the GoldSrc engine (e.g. Half-Life, Counter-Strike)
@@ -71,9 +71,9 @@ module SteamCondenser::Servers::Sockets
           end
         end while bytes_read > 0 && @buffer.long == 0xFFFFFFFE
 
-        packet = SteamCondenser::Servers::Packets::SteamPacketFactory.reassemble_packet(split_packets)
+        packet = SteamCondenser::SteamServers::Packets::SteamPacketFactory.reassemble_packet(split_packets)
       else
-        packet = SteamCondenser::Servers::Packets::SteamPacketFactory.packet_from_data(@buffer.get)
+        packet = SteamCondenser::SteamServers::Packets::SteamPacketFactory.packet_from_data(@buffer.get)
       end
 
       log.debug "Got reply of type \"#{packet.class.to_s}\"."
@@ -143,7 +143,7 @@ module SteamCondenser::Servers::Sockets
     #
     # @param [String] command The RCON command to send to the server
     def rcon_send(command)
-      send_packet SteamCondenser::Servers::Packets::RCON::RCONGoldSrcRequest.new(command)
+      send_packet SteamCondenser::SteamServers::Packets::RCON::RCONGoldSrcRequest.new(command)
     end
 
   end

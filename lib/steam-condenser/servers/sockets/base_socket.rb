@@ -9,7 +9,7 @@ require 'socket'
 require 'core_ext/stringio'
 require 'steam-condenser/error/timeout'
 
-module SteamCondenser::Servers
+module SteamCondenser::SteamServers
 
   module Sockets
 

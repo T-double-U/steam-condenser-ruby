@@ -9,15 +9,15 @@ class TestBaseSocket < Test::Unit::TestCase
 
   class GenericSocket
     include Logging
-    include Servers::Sockets::BaseSocket
+    include SteamServers::Sockets::BaseSocket
   end
 
   context 'The user timeout of a socket' do
 
     should 'be able to change the timeout of a socket' do
-      Servers::Sockets::BaseSocket.timeout = 2000
+      SteamServers::Sockets::BaseSocket.timeout = 2000
 
-      assert_equal 2000, Servers::Sockets::BaseSocket.send(:class_variable_get, :@@timeout)
+      assert_equal 2000, SteamServers::Sockets::BaseSocket.send(:class_variable_get, :@@timeout)
     end
 
   end

@@ -13,7 +13,7 @@ require 'steam-condenser/error/timeout'
 require 'steam-condenser/servers/packets/rcon/rcon_packet_factory'
 require 'steam-condenser/servers/sockets/base_socket'
 
-module SteamCondenser::Servers::Sockets
+module SteamCondenser::SteamServers::Sockets
 
   # This class represents a socket used for RCON communication with game
   # servers based on the Source engine (e.g. Team Fortress 2, Counter-Strike:
@@ -101,7 +101,7 @@ module SteamCondenser::Servers::Sockets
         packet_data << @buffer.get
       end while remaining_bytes > 0
 
-      packet = SteamCondenser::Servers::Packets::RCON::RCONPacketFactory.packet_from_data(packet_data)
+      packet = SteamCondenser::SteamServers::Packets::RCON::RCONPacketFactory.packet_from_data(packet_data)
 
       log.debug "Received packet of type \"#{packet.class}\"."
 

@@ -10,7 +10,7 @@ class TestSourceSocket < Test::Unit::TestCase
   context 'A Source socket' do
 
     setup do
-      @socket = Servers::Sockets::SourceSocket.new '127.0.0.1'
+      @socket = SteamServers::Sockets::SourceSocket.new '127.0.0.1'
     end
 
     should 'be able to receive single packet replies' do
@@ -22,7 +22,7 @@ class TestSourceSocket < Test::Unit::TestCase
       buffer.expects(:long).returns 0xFFFFFFFF
       buffer.expects(:get).returns data
       packet = mock
-      Servers::Packets::SteamPacketFactory.expects(:packet_from_data).with(data).returns packet
+      SteamServers::Packets::SteamPacketFactory.expects(:packet_from_data).with(data).returns packet
 
       assert_equal packet, @socket.reply
     end
@@ -43,7 +43,7 @@ class TestSourceSocket < Test::Unit::TestCase
       buffer.expects(:get).twice.returns(data1).returns(data2)
 
       packet = mock
-      Servers::Packets::SteamPacketFactory.expects(:reassemble_packet).with([data1, data2], false, 0).
+      SteamServers::Packets::SteamPacketFactory.expects(:reassemble_packet).with([data1, data2], false, 0).
         returns packet
 
       assert_equal packet, @socket.reply
@@ -65,7 +65,7 @@ class TestSourceSocket < Test::Unit::TestCase
       buffer.expects(:get).twice.returns(data1).returns(data2)
 
       packet = mock
-      Servers::Packets::SteamPacketFactory.expects(:reassemble_packet).
+      SteamServers::Packets::SteamPacketFactory.expects(:reassemble_packet).
         with([data1, data2], true, 1337).returns packet
 
       assert_equal packet, @socket.reply

@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets::RCON
+module SteamCondenser::SteamServers::Packets::RCON
 
   # This packet class represents a RCON response packet sent by a GoldSrc
   # server
@@ -14,10 +14,10 @@ module SteamCondenser::Servers::Packets::RCON
   # client which requested the command execution.
   #
   # @author Sebastian Staudt
-  # @see GoldSrcServer#rcon_exec
+  # @see GoldSrcSteamServer#rcon_exec
   class RCONGoldSrcResponse
 
-    include SteamCondenser::Servers::Packets::BasePacket
+    include SteamCondenser::SteamServers::Packets::BasePacket
 
     # Creates a RCON command response for the given command output
     #

@@ -6,7 +6,7 @@
 require 'steam-condenser/error/packet_format'
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This packet class represents a M2A_SERVER_BATCH response replied by a master
   # server
@@ -15,7 +15,7 @@ module SteamCondenser::Servers::Packets
   # requested criteria.
   #
   # @author Sebastian Staudt
-  # @see MasterServer#servers
+  # @see MasterSteamServer#servers
   class M2A_SERVER_BATCH_Packet
 
     include BasePacket

@@ -11,8 +11,8 @@ module SteamCondenser
   # game server you're trying to send commands via RCON
   #
   # @author Sebastian Staudt
-  # @see GameServer#rcon_auth
-  # @see GameServer#rcon_exec
+  # @see GameSteamServer#rcon_auth
+  # @see GameSteamServer#rcon_exec
   class Error::RCONNoAuth < Error
 
     # Creates a new `Error::RCONNoAuth` instance

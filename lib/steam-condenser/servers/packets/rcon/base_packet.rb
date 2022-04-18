@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   module RCON
 
@@ -19,7 +19,7 @@ module SteamCondenser::Servers::Packets
     # @see RCONPacketFactory
     module BasePacket
 
-      include SteamCondenser::Servers::Packets::BasePacket
+      include SteamCondenser::SteamServers::Packets::BasePacket
 
       # Header for authentication requests
       SERVERDATA_AUTH = 3

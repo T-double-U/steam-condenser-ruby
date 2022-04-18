@@ -118,7 +118,7 @@
 
  * [ENHANCEMENT] Added API name and description to achievements
  * [BUGFIX] Fixed handling of empty RCON responses
- * [BUGFIX] Fixed `SourceServer.master`
+ * [BUGFIX] Fixed `SourceSteamServer.master`
  * [BUGFIX] Fixed parsing rules with empty values
  * [BUGFIX] Fixed server info for some Source servers
  * [BUGFIX] Fixed Rakefile encoding for Ruby 1.9

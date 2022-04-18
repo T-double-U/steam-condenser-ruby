@@ -5,13 +5,13 @@
 
 require 'helper'
 
-class TestGameServer < Test::Unit::TestCase
+class TestGameSteamServer < Test::Unit::TestCase
 
   context 'A generic game server' do
 
-    class GenericGameServer
+    class GenericGameSteamServer
       include Logging
-      include Servers::GameServer
+      include SteamServers::GameSteamServer
     end
 
     setup do
@@ -20,13 +20,13 @@ class TestGameServer < Test::Unit::TestCase
         returns [[nil, nil, 'game', '127.0.0.1']]
       @socket = mock
 
-      @server = GenericGameServer.new 'game', 27015
+      @server = GenericGameSteamServer.new 'game', 27015
       @server.instance_variable_set :@socket, @socket
     end
 
     should 'be able to calculate the latency of the server' do
       @socket.expects(:send_packet).with do |packet|
-        packet.is_a? Servers::Packets::A2S_INFO_Packet
+        packet.is_a? SteamServers::Packets::A2S_INFO_Packet
       end
       @socket.expects(:reply).with { || sleep 0.05 }
 
@@ -128,13 +128,13 @@ class TestGameServer < Test::Unit::TestCase
         somebody_data = { name: 'somebody', userid: '2', uniqueid: 'STEAM_00:123457', score: '3', time: '242', ping: '34', loss: '0', state: 'active' }
 
         attributes = mock
-        Servers::GameServer.expects(:player_status_attributes).
+        SteamServers::GameSteamServer.expects(:player_status_attributes).
           with('userid name           uniqueid            score connected ping loss state').
           returns attributes
-        Servers::GameServer.expects(:split_player_status).
+        SteamServers::GameSteamServer.expects(:split_player_status).
           with(attributes, '1 "someone"      STEAM_0:0:123456    10    3:52      12   0    active').
           returns somebody_data
-        Servers::GameServer.expects(:split_player_status).
+        SteamServers::GameSteamServer.expects(:split_player_status).
           with(attributes, '2 "somebody"     STEAM_0:0:123457    3     2:42      34   0    active').
           returns someone_data
 
@@ -171,13 +171,13 @@ class TestGameServer < Test::Unit::TestCase
       somebody_data = { name: 'somebody', userid: '2', uniqueid: 'STEAM_00:123457', score: '3', time: '242', ping: '34', loss: '0', adr: '0' }
 
       attributes = mock
-      Servers::GameServer.expects(:player_status_attributes).
+      SteamServers::GameSteamServer.expects(:player_status_attributes).
         with('name userid uniqueid frag time ping loss adr').
         returns attributes
-      Servers::GameServer.expects(:split_player_status).
+      SteamServers::GameSteamServer.expects(:split_player_status).
         with(attributes, '1   "someone" 1 STEAM_0:0:123456 10 3:52 12 0 0').
         returns somebody_data
-      Servers::GameServer.expects(:split_player_status).
+      SteamServers::GameSteamServer.expects(:split_player_status).
         with(attributes, '2   "somebody" 2 STEAM_0:0:123457 3 2:42 34 0 0').
         returns someone_data
 
@@ -191,14 +191,14 @@ class TestGameServer < Test::Unit::TestCase
 
     should 'handle challenge requests' do
       @socket.expects(:send_packet).with do |packet|
-        packet.is_a? Servers::Packets::A2S_PLAYER_Packet
+        packet.is_a? SteamServers::Packets::A2S_PLAYER_Packet
       end
 
       packet = mock
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_INFO_BasePacket).returns false
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_PLAYER_Packet).returns false
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_RULES_Packet).returns false
-      packet.expects(:kind_of?).with(Servers::Packets::S2C_CHALLENGE_Packet).twice.returns true
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_INFO_BasePacket).returns false
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_PLAYER_Packet).returns false
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_RULES_Packet).returns false
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2C_CHALLENGE_Packet).twice.returns true
 
       packet.expects(:challenge_number).returns 1234
       @socket.expects(:reply).returns packet
@@ -210,11 +210,11 @@ class TestGameServer < Test::Unit::TestCase
 
     should 'handle info requests' do
       @socket.expects(:send_packet).with do |packet|
-        packet.is_a? Servers::Packets::A2S_INFO_Packet
+        packet.is_a? SteamServers::Packets::A2S_INFO_Packet
       end
 
       packet = mock
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_INFO_BasePacket).twice.returns true
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_INFO_BasePacket).twice.returns true
       packet.expects(:info).returns test: 'test'
       @socket.expects(:reply).returns packet
 
@@ -225,13 +225,13 @@ class TestGameServer < Test::Unit::TestCase
 
     should 'handle rule requests' do
       @socket.expects(:send_packet).with do |packet|
-        packet.is_a? Servers::Packets::A2S_RULES_Packet
+        packet.is_a? SteamServers::Packets::A2S_RULES_Packet
       end
 
       packet = mock
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_INFO_BasePacket).returns false
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_PLAYER_Packet).returns false
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_RULES_Packet).twice.returns true
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_INFO_BasePacket).returns false
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_PLAYER_Packet).returns false
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_RULES_Packet).twice.returns true
       packet.expects(:rules_hash).returns test: 'test'
       @socket.expects(:reply).returns packet
 
@@ -242,12 +242,12 @@ class TestGameServer < Test::Unit::TestCase
 
     should 'handle player requests' do
       @socket.expects(:send_packet).with do |packet|
-        packet.is_a? Servers::Packets::A2S_PLAYER_Packet
+        packet.is_a? SteamServers::Packets::A2S_PLAYER_Packet
       end
 
       packet = mock
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_INFO_BasePacket).returns false
-      packet.expects(:kind_of?).with(Servers::Packets::S2A_PLAYER_Packet).twice.returns true
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_INFO_BasePacket).returns false
+      packet.expects(:kind_of?).with(SteamServers::Packets::S2A_PLAYER_Packet).twice.returns true
       packet.expects(:player_hash).returns test: 'test'
       @socket.expects(:reply).returns packet
 
@@ -258,16 +258,16 @@ class TestGameServer < Test::Unit::TestCase
 
     should 'handle unexpected answers and retry' do
       @socket.expects(:send_packet).twice.with do |packet|
-        packet.is_a? Servers::Packets::A2S_PLAYER_Packet
+        packet.is_a? SteamServers::Packets::A2S_PLAYER_Packet
       end
 
       packet1 = mock
-      packet1.expects(:kind_of?).with(Servers::Packets::S2A_INFO_BasePacket).returns true
-      packet1.expects(:kind_of?).with(Servers::Packets::S2A_PLAYER_Packet).returns false
+      packet1.expects(:kind_of?).with(SteamServers::Packets::S2A_INFO_BasePacket).returns true
+      packet1.expects(:kind_of?).with(SteamServers::Packets::S2A_PLAYER_Packet).returns false
       packet1.expects(:info).returns test: 'test1'
       packet2 = mock
-      packet2.expects(:kind_of?).with(Servers::Packets::S2A_INFO_BasePacket).returns false
-      packet2.expects(:kind_of?).with(Servers::Packets::S2A_PLAYER_Packet).twice.returns true
+      packet2.expects(:kind_of?).with(SteamServers::Packets::S2A_INFO_BasePacket).returns false
+      packet2.expects(:kind_of?).with(SteamServers::Packets::S2A_PLAYER_Packet).twice.returns true
       packet2.expects(:player_hash).returns test: 'test2'
       @socket.expects(:reply).twice.returns(packet1).returns packet2
 

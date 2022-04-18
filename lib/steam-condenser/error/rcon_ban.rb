@@ -14,7 +14,7 @@ module SteamCondenser
   # server.
   #
   # @author Sebastian Staudt
-  # @see GameServer#rcon_auth
+  # @see GameSteamServer#rcon_auth
   class Error::RCONBan < Error
 
     # Creates a new `Error::RCONBan` instance

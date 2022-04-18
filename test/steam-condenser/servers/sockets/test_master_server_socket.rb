@@ -5,12 +5,12 @@
 
 require 'helper'
 
-class TestMasterServerSocket < Test::Unit::TestCase
+class TestMasterSteamServerSocket < Test::Unit::TestCase
 
   context 'A master server socket' do
 
     setup do
-      @socket = Servers::Sockets::MasterServerSocket.new '127.0.0.1'
+      @socket = SteamServers::Sockets::MasterSteamServerSocket.new '127.0.0.1'
       @socket.instance_variable_set :@buffer, mock
     end
 
@@ -31,7 +31,7 @@ class TestMasterServerSocket < Test::Unit::TestCase
       buffer.expects(:get).returns 'test'
 
       packet = mock
-      Servers::Packets::SteamPacketFactory.expects(:packet_from_data).with('test').returns packet
+      SteamServers::Packets::SteamPacketFactory.expects(:packet_from_data).with('test').returns packet
 
       assert_equal packet, @socket.reply
     end

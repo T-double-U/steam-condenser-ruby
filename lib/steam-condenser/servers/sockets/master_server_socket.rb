@@ -6,12 +6,12 @@
 require 'steam-condenser/error/packet_format'
 require 'steam-condenser/servers/sockets/base_socket'
 
-module SteamCondenser::Servers::Sockets
+module SteamCondenser::SteamServers::Sockets
 
   # This class represents a socket used to communicate with master servers
   #
   # @author Sebastian Staudt
-  class MasterServerSocket
+  class MasterSteamServerSocket
 
     include BaseSocket
     include SteamCondenser::Logging
@@ -27,7 +27,7 @@ module SteamCondenser::Servers::Sockets
         raise SteamCondenser::Error::PacketFormat, 'Master query response has wrong packet header.'
       end
 
-      packet = SteamCondenser::Servers::Packets::SteamPacketFactory.packet_from_data @buffer.get
+      packet = SteamCondenser::SteamServers::Packets::SteamPacketFactory.packet_from_data @buffer.get
 
       log.debug "Got reply of type \"#{packet.class.to_s}\"."
 

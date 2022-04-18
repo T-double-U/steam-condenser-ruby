@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This packet class represents a A2S_SERVERQUERY_GETCHALLENGE request send to
   # a game server
@@ -14,7 +14,7 @@ module SteamCondenser::Servers::Packets
   # to identify the requesting client.
   #
   # @author Sebastian Staudt
-  # @see GameServer#update_challenge_number
+  # @see GameSteamServer#update_challenge_number
   class A2S_SERVERQUERY_GETCHALLENGE_Packet
 
     include BasePacket

@@ -5,7 +5,7 @@
 
 require 'core_ext/stringio'
 
-module SteamCondenser::Servers
+module SteamCondenser::SteamServers
 
   module Packets
 

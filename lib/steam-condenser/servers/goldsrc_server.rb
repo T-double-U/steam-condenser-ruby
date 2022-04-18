@@ -9,28 +9,28 @@ require 'steam-condenser/servers/sockets/goldsrc_socket'
 
 module SteamCondenser
 
-  module Servers
+  module SteamServers
 
     # This class represents a GoldSrc game server and can be used to query
     # information about and remotely execute commands via RCON on the server
     #
-    # A GoldSrc game server is an instance of the Half-Life Dedicated Server
+    # A GoldSrc game server is an instance of the Half-Life Dedicated SteamServer
     # (HLDS) running games using Valve's GoldSrc engine, like Half-Life
     # Deathmatch, Counter-Strike 1.6 or Team Fortress Classic.
     #
     # @author Sebastian Staudt
-    # @see SourceServer
-    class GoldSrcServer
+    # @see SourceSteamServer
+    class GoldSrcSteamServer
 
-      include GameServer
+      include GameSteamServer
       include SteamCondenser::Logging
 
       # Returns a master server instance for the default master server for
       # GoldSrc games
       #
-      # @return [MasterServer] The GoldSrc master server
+      # @return [MasterSteamServer] The GoldSrc master server
       def self.master
-        MasterServer.new *MasterServer::GOLDSRC_MASTER_SERVER
+        MasterSteamServer.new *MasterSteamServer::GOLDSRC_MASTER_SERVER
       end
 
       # Creates a new instance of a GoldSrc server object

@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This packet class class represents a A2S_INFO request send to a game server
   #
@@ -13,7 +13,7 @@ module SteamCondenser::Servers::Packets
   # the running game, map and the number of players.
   #
   # @author Sebastian Staudt
-  # @see GameServer#update_server_info
+  # @see GameSteamServer#update_server_info
   class A2S_INFO_Packet
 
     include BasePacket

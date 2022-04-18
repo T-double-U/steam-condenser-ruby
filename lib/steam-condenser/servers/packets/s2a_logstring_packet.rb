@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This class represents a S2A_LOGSTRING packet used to transfer log messages
   #

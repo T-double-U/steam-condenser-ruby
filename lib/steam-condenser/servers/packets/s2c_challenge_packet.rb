@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This packet class represents a S2C_CHALLENGE response replied by a game
   # server
@@ -14,7 +14,7 @@ module SteamCondenser::Servers::Packets
   # from the game server.
   #
   # @author Sebastian Staudt
-  # @see GameServer#update_challenge_number
+  # @see GameSteamServer#update_challenge_number
   class S2C_CHALLENGE_Packet
 
     include BasePacket

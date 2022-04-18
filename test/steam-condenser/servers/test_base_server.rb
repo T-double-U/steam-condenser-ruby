@@ -5,13 +5,13 @@
 
 require 'helper'
 
-class TestBaseServer < Test::Unit::TestCase
+class TestBaseSteamServer < Test::Unit::TestCase
 
   context 'A generic server' do
 
-    class GenericServer
+    class GenericSteamServer
       include Logging
-      include Servers::BaseServer
+      include SteamServers::BaseSteamServer
     end
 
     should 'split IP and port combinations' do
@@ -22,8 +22,8 @@ class TestBaseServer < Test::Unit::TestCase
         with('someserver', '27015', Socket::AF_INET, Socket::SOCK_DGRAM).
         returns []
 
-      GenericServer.new '127.0.0.1:27015'
-      GenericServer.new 'someserver:27015'
+      GenericSteamServer.new '127.0.0.1:27015'
+      GenericSteamServer.new 'someserver:27015'
     end
 
     should 'resolve multiple DNS names' do
@@ -34,7 +34,7 @@ class TestBaseServer < Test::Unit::TestCase
           [nil, nil, 'someserver2', '127.0.0.2']
         ]
 
-      server = GenericServer.new 'someserver', 27015
+      server = GenericSteamServer.new 'someserver', 27015
 
       assert_equal %w{someserver someserver2}, server.host_names
       assert_equal %w{127.0.0.1 127.0.0.2}, server.ip_addresses
@@ -43,7 +43,7 @@ class TestBaseServer < Test::Unit::TestCase
     should 'rotate through multiple IP addresses' do
       Socket.stubs(:getaddrinfo).returns []
 
-      server = GenericServer.new 'someserver'
+      server = GenericSteamServer.new 'someserver'
       server.instance_variable_set :@ip_addresses, %w{127.0.0.1 127.0.0.2}
       server.instance_variable_set :@ip_address, '127.0.0.1'
       server.expects(:init_socket).twice
@@ -58,7 +58,7 @@ class TestBaseServer < Test::Unit::TestCase
       Socket.stubs(:getaddrinfo).returns []
       block = Proc.new { raise 'error' }
 
-      server = GenericServer.new 'someserver'
+      server = GenericSteamServer.new 'someserver'
       server.expects(:rotate_ip).twice.returns(false).then.returns(true)
 
       error = assert_raises RuntimeError do

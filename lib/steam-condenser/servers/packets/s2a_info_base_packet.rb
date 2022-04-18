@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This module implements methods to generate and access server information
   # from S2A_INFO_DETAILED and S2A_INFO2 response packets

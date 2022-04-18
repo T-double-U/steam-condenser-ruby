@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/rcon/base_packet'
 
-module SteamCondenser::Servers::Packets::RCON
+module SteamCondenser::SteamServers::Packets::RCON
 
   # This packet class represents a SERVERDATA_AUTH request sent to a Source
   # server
@@ -13,7 +13,7 @@ module SteamCondenser::Servers::Packets::RCON
   # It is used to authenticate the client for RCON communication.
   #
   # @author Sebastian Staudt
-  # @see SourceServer#rcon_auth
+  # @see SourceSteamServer#rcon_auth
   class RCONAuthRequest
 
     include BasePacket

@@ -20,7 +20,7 @@ require 'steam-condenser/servers/packets/s2a_logstring_packet'
 require 'steam-condenser/servers/packets/rcon/rcon_goldsrc_response'
 require 'steam-condenser/error/packet_format'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This module provides functionality to handle raw packet data, including
   # data split into several UDP / TCP packets and BZIP2 compressed data. It's

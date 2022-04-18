@@ -6,14 +6,14 @@
 require 'steam-condenser/servers/packets/base_packet'
 require 'steam-condenser/error/packet_format'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This class represents a S2A_PLAYER response sent by a game server
   #
   # It is used to transfer a list of players currently playing on the server.
   #
   # @author Sebastian Staudt
-  # @see GameServer#update_player_info
+  # @see GameSteamServer#update_player_info
   class S2A_PLAYER_Packet
 
     include BasePacket
@@ -39,7 +39,7 @@ module SteamCondenser::Servers::Packets
 
       while @content_data.remaining > 0
         player_data = @content_data.getbyte, @content_data.cstring, @content_data.signed_long, @content_data.float
-        @player_hash[player_data[1]] = SteamCondenser::Servers::SteamPlayer.new(*player_data[0..3])
+        @player_hash[player_data[1]] = SteamCondenser::SteamServers::SteamPlayer.new(*player_data[0..3])
       end
     end
 

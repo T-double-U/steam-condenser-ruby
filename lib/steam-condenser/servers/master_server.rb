@@ -10,7 +10,7 @@ require 'steam-condenser/servers/sockets/master_server_socket'
 
 module SteamCondenser
 
-  module Servers
+  module SteamServers
 
     # This class represents a Steam master server and can be used to get game
     # servers which are publicly available
@@ -20,9 +20,9 @@ module SteamCondenser
     # results.
     #
     # @author Sebastian Staudt
-    class MasterServer
+    class MasterSteamServer
 
-      include BaseServer
+      include BaseSteamServer
       include SteamCondenser::Logging
 
       # The default number of allowed retries
@@ -71,9 +71,9 @@ module SteamCondenser
 
       # Initializes the socket to communicate with the master server
       #
-      # @see MasterServerSocket
+      # @see MasterSteamServerSocket
       def init_socket
-        @socket = Sockets::MasterServerSocket.new @ip_address, @port
+        @socket = Sockets::MasterSteamServerSocket.new @ip_address, @port
       end
 
       # Returns a list of game server matching the given region and filters
@@ -106,8 +106,8 @@ module SteamCondenser
       # @return [Array<Array<String>>] A list of game servers matching the given
       #         region and filters
       # @see A2M_GET_SERVERS_BATCH2_Packet
-      # @see MasterServer.retries=
-      def servers(region_code = MasterServer::REGION_ALL, filters = '', force = false)
+      # @see MasterSteamServer.retries=
+      def servers(region_code = MasterSteamServer::REGION_ALL, filters = '', force = false)
         finished       = false
         current_server = '0.0.0.0:0'
         server_array   = []

@@ -5,7 +5,7 @@
 
 require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser::Servers::Packets
+module SteamCondenser::SteamServers::Packets
 
   # This class represents a S2A_RULES response sent by a game server
   #
@@ -13,7 +13,7 @@ module SteamCondenser::Servers::Packets
   # active values.
   #
   # @author Sebastian Staudt
-  # @see GameServer#update_rules_info
+  # @see GameSteamServer#update_rules_info
   class S2A_RULES_Packet
 
     include BasePacket
